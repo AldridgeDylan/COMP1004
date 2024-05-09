@@ -1,0 +1,61 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+	background: linear-gradient(90deg, rgba(21,82,215,1) 0%, rgba(21,144,215,1) 100%);
+}
+
+main {
+	border: 1px solid black;	
+	margin: 10px;
+	padding: 10px;
+}
+
+footer {
+	border: 1px solid black;	
+	margin: 10px;
+	padding: 10px;
+	background: linear-gradient(90deg, rgba(21,82,215,1) 0%, rgba(21,144,215,1) 100%);
+}
+
+.navigation {
+	display: flex;
+	justify-content: space-evenly;
+	padding: initial;
+	font-size: 14px;
+}
+
+@media (max-width: 32em) {
+	.navigation {
+		display: block;
+		padding: initial;
+		font-size: 12px;
+	}
+	.navigation li {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+h1 {
+	display: flex;
+	justify-content: center;
+}
+
+/*  This May need to be changed to fit specs  */
+ul {
+	list-style-type: none;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover { 
+	color: #10bbe2;
+}
