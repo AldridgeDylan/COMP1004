@@ -1,37 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
   <head>
-		<meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="en" />
     <meta charset="utf-8" />
     <meta name="author" content="Dylan Aldridge" />
-    <meta name="description" content="COMP1043 Coursework Add a Vehicle" /> 
-		<title>Add a Vehicle</title>
+    <meta name="description" content="COMP1043 Coursework Add a Vehicle" />
+    <title>Add a Vehicle</title>
 
-		<!-- For SEO optimisation -->
-		<meta name="keywords" content="UON, COMP1043, Databases, Interfaces" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-			
-		<link rel="stylesheet" href="../styles/styles.css" />
+    <!-- For SEO optimisation -->
+    <meta name="keywords" content="UON, COMP1043, Databases, Interfaces" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../styles/styles.css" />
   </head>
   <body class="container">
-		<header>
-			<h1>Add a vehicle</h1>
-			<nav>
-				<ul class="navigation">
-					<li><a href="../index.html">People search</a></li>
-					<li><a href="vehicle-search.html">Vehicle search</a></li>
-					<li><a href="vehicle-add.html">Add a vehicle</a></li>
-				</ul>
-			</nav>
-	  </header>
+    <header>
+      <h1>Add a vehicle</h1>
+      <nav>
+        <ul class="navigation">
+          <li><a href="../index.html">People search</a></li>
+          <li><a href="vehicle-search.html">Vehicle search</a></li>
+          <li><a href="vehicle-add.html">Add a vehicle</a></li>
+        </ul>
+      </nav>
+    </header>
 
     <main>
       <aside>
-				<img src="../images/CarSideBar.jpeg" alt="Car Image" >
+        <img src="../images/CarSideBar.jpeg" alt="Car Image" />
       </aside>
       <section>
-        <!-- Content of the main section goes here -->
-        <p>Welcome to the People Search portal. Enter names or driving license numbers to begin your search.</p>
+        <h2>Welcome to the People Search portal</h2>
+        <form class="form">
+          <div>
+            <label for="name">Search by driver name: </label>
+            <input type="text" id="name" onkeypress="handleKeyPress(event)" required maxlength="50" />
+          </div>
+          <div>
+            <label for="license">Search by driving license number: </label>
+            <input type="text" id="license" onkeypress="handleKeyPress(event)" required	maxlength="50" />
+          </div>
+					<div>
+						<button type="button" id="Submit" name="Submit" onclick="search()">
+							Add
+						</button>
+				  </div>
+					<div>
+            <p id="message"></p>
+				  </div>
+        </form>
+
+        <!-- Display results -->
       </section>
     </main>
 
@@ -39,6 +58,6 @@
       <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
     </footer>
 
-		<script src="../scripts/app.js"></script>
+    <script src="../scripts/vehicleAdd.js"></script>
   </body>
 </html>

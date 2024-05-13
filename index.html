@@ -1,21 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="en" />
     <meta charset="utf-8" />
     <meta name="author" content="Dylan Aldridge" />
     <meta name="description" content="COMP1004 Coursework: People Search" />
     <title>People Search</title>
-
     <!-- SEO Optimization -->
     <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link rel="stylesheet" href="styles/styles.css" />
-	</head>
-	<body class="container">
+  </head>
+  <body class="container">
     <header>
-     	<h1>People Search</h1>
+      <h1>People Search</h1>
       <nav>
         <ul class="navigation">
           <li><a href="index.html">People search</a></li>
@@ -27,11 +25,58 @@
 
     <main>
       <aside>
-        <img src="images/CarSideBar.jpeg" alt="Car Image" >
+        <img src="images/CarSideBar.jpeg" alt="Car Image" />
       </aside>
+
       <section>
-        <!-- Content of the main section goes here -->
-        <p>Welcome to the People Search portal. Enter names or driving license numbers to begin your search.</p>
+        <h2>Welcome to the People Search portal</h2>
+        <div class="section-grid">
+          <form class="form">
+            <div>
+              <label for="searchType">Search by:</label>
+              <select
+                id="searchType"
+                name="searchType"
+                onchange="toggleInput(this.value)"
+              >
+                <option value="name">Driver Name</option>
+                <option value="license">Driving License Number</option>
+              </select>
+            </div>
+            <div>
+              <div id="nameInput" style="display: block">
+                <label for="name">Driver Name: </label>
+                <input type="text" id="name" required maxlength="50" />
+              </div>
+              <div id="licenseInput" style="display: none">
+                <label for="license">License Number: </label>
+                <input type="text" id="license" required maxlength="50" />
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="Submit"
+                name="Submit"
+                onclick="search()"
+              >
+                Search
+              </button>
+            </div>
+            <p id="message"></p>
+          </form>
+
+          <table class="results-table">
+            <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+            </tr>
+            <tr>
+              <td>Data 1</td>
+              <td>Data 2</td>
+            </tr>
+          </table>
+        </div>
       </section>
     </main>
 
@@ -39,6 +84,6 @@
       <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
     </footer>
 
-		<script src="scripts/app.js"></script>
-</body>
+    <script src="scripts/people.js"></script>
+  </body>
 </html>
