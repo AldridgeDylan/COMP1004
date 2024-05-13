@@ -1,58 +1,87 @@
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	display: grid;
+	grid-template-areas:
+					"header"
+					"main"
+					"footer";
+	grid-template-rows: auto 1fr auto;
+	gap: 10px;
+	margin: 0;
 }
 
 header {
+	grid-area: header;
 	border: 1px solid black;
 	margin: 10px;
 	padding: 10px;
 	background: linear-gradient(90deg, rgba(21,82,215,1) 0%, rgba(21,144,215,1) 100%);
+	color: white;
+	display: flex;
+	flex-direction: column;
+}
+
+header h1 {
+	display: flex;
+	justify-content: center;
+	justify-items: center;
 }
 
 main {
-	border: 1px solid black;	
+	display: grid;
+	grid-template-columns: 1fr 4fr; 
+	grid-template-areas: "sidebar maincontent";
+	gap: 10px; 
+}
+
+aside {
+	grid-area: sidebar;
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
+}
+
+section {
+	grid-area: maincontent;
+	border: 1px solid black;
 	margin: 10px;
 	padding: 10px;
 }
 
 footer {
-	border: 1px solid black;	
+	grid-area: footer;
+	border: 1px solid black;
 	margin: 10px;
 	padding: 10px;
 	background: linear-gradient(90deg, rgba(21,82,215,1) 0%, rgba(21,144,215,1) 100%);
+	display: flex;
+	justify-content: center;
+	color: white;
 }
 
 .navigation {
 	display: flex;
-	justify-content: space-evenly;
-	padding: initial;
-	font-size: 14px;
-}
-
-@media (max-width: 32em) {
-	.navigation {
-		display: block;
-		padding: initial;
-		font-size: 12px;
-	}
-	.navigation li {
-		display: flex;
-		justify-content: center;
-	}
-}
-
-h1 {
-	display: flex;
-	justify-content: center;
-}
-
-/*  This May need to be changed to fit specs  */
-ul {
+	justify-content: space-evenly; /* Space items evenly on all screens */
 	list-style-type: none;
+	padding: 0;
+	margin-top: 10px; /* Give some space between the title and navigation links */
+	width: 100%; /* Ensure the navigation bar spans the full width */
+}
+
+@media (max-width: 500px) {
+	.navigation {
+			flex-direction: column; /* Stack navigation links vertically */
+			align-items: center; /* Center align vertically stacked items */
+	}
+
+	main {
+			grid-template-columns: 1fr;
+			grid-template-areas: "sidebar" "maincontent";
+	}
 }
 
 a {
-	color: black;
+	color: white;
 	text-decoration: none;
 }
 
