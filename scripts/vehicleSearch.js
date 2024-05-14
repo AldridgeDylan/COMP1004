@@ -9,7 +9,6 @@ const columnMapping = {
   make: "Make",
   model: "Model",
   colour: "Colour",
-  owner: "OwnerID"
 };
 
 async function search() {

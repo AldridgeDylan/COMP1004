@@ -7,6 +7,9 @@ const SUPABASE_URL = "https://iqltwrvrjhccjwlysxyt.supabase.co";
 const columnMapping = {
   name: "Name",
   license: "LicenseNumber",
+  address: "Address",
+  dob: "DOB",
+  expiry: "ExpiryDate",
 };
 
 async function search() {
