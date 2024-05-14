@@ -1,3 +1,8 @@
+/* Grid Layout is still an issue */
+
+
+
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -42,7 +47,6 @@ footer {
 header h1 {
   display: flex;
   justify-content: center;
-  justify-items: center;
 }
 
 .navigation {
@@ -139,22 +143,22 @@ select:focus, input[type="text"]:focus, button:focus {
 }
 
 button {
-  background-color: #10bbe2;
+  background-color: #087CB8;
   color: white;
   border-radius: 6px;
-  border: 2px solid #10bbe2;
+  border: 2px solid #087CB8;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 button:hover {
-  background-color: #0892D0;
-  border-color: #087CB8;
+  background-color: #1552d7;
+  border-color: #1552d7;
 }
 
 button:active {
-  background-color: #1552d7;
+  background-color: #143DA5;
   color: white;
   border-color: #143DA5;
 }

@@ -24,9 +24,13 @@ async function search() {
   try {
     const response = await fetchData();
 
+    if (response.length === 0) {
+      throw new Error("No matching entry found");
+    }
+
     // Puts the returned data into a table which is displayed
-    const table = createTable(response);
-    document.getElementById("results-table").innerHTML = table;
+    const tableHTML = createTable(response);
+    document.getElementById("results-table").innerHTML = tableHTML;
 
     messageElement.style.color = "green";
     messageElement.textContent = "Search successful";
@@ -48,6 +52,7 @@ async function fetchData() {
     const response = await fetch(url, {
       method: "GET",
       headers: {
+        apikey: SUPABASE_PUBLIC_KEY,
         Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`,
         "Content-Type": "application/json",
       },
@@ -55,36 +60,30 @@ async function fetchData() {
     return await response.json();
   } catch (error) {
     console.error("Error: ", error);
+    throw error;
   }
 }
 
 function createTable(data) {
-  const table = document.createElement("table");
-  const thead = document.createElement("thead");
-  const tbody = document.createElement("tbody");
+  let tableHTML = "<table><thead><tr>";
 
   // Create table header
-  const headerRow = document.createElement("tr");
   for (const key in data[0]) {
-    const th = document.createElement("th");
-    th.textContent = key;
-    headerRow.appendChild(th);
+    tableHTML += `<th>${key}</th>`;
   }
-  thead.appendChild(headerRow);
+  tableHTML += "</tr></thead><tbody>";
 
   // Create table body
   data.forEach(item => {
-    const row = document.createElement("tr");
+    tableHTML += "<tr>";
     for (const key in item) {
-      const cell = document.createElement("td");
-      cell.textContent = item[key];
-      row.appendChild(cell);
+      tableHTML += `<td>${item[key]}</td>`;
     }
-    tbody.appendChild(row);
+    tableHTML += "</tr>";
   });
 
-  table.appendChild(thead);
-  table.appendChild(tbody);
+  tableHTML += "</tbody></table>";
+  return tableHTML;
 }
 
 function toggleInput() {
@@ -92,20 +91,15 @@ function toggleInput() {
   const selectedOptionValue = searchTypeSelect.value;
   const label = document.getElementById("dynamicLabel");
   const input = document.getElementById("dynamicInput");
-	const messageElement = document.getElementById("message");
+  const messageElement = document.getElementById("message");
 
   // Changes which ID the input is associated with
-  if (selectedOptionValue === "name") {
-    label.textContent = "Driver Name:";
-    input.setAttribute("data-column-name", columnMapping.name);
-  } else if (selectedOptionValue === "license") {
-    label.textContent = "Driving License Number:";
-    input.setAttribute("data-column-name", columnMapping.license);
-  }
+  label.textContent = `${searchTypeSelect.options[searchTypeSelect.selectedIndex].text.toLowerCase()}:`;
+  input.setAttribute("data-column-name", columnMapping[selectedOptionValue]);
 
   // Clears the input when a different option is selected
   input.value = "";
-	messageElement.textContent = "";
+  messageElement.textContent = "";
 }
 
 // Adds all required event listeners on page load
