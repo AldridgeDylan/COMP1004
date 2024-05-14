@@ -102,6 +102,7 @@ section {
 
 .section-grid {
   display: flex;
+	flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: start;
@@ -110,15 +111,18 @@ section {
 
 .form {
   display: flex;
-  flex-direction: column;
+	justify-content: center;
   gap: 20px;
   margin: 10px 0;
+	width: 100%;
 }
 
 .form div {
   display: flex;
-  align-items: center;
-  gap: 15px;
+	justify-content: center;
+  gap: 5px;
+	align-items: center;
+	white-space: nowrap;
 }
 
 select, input[type="text"], button {
@@ -158,7 +162,8 @@ button:active {
 .results-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+	margin: 0px 20px 20px 20px;
+	width: calc(100% - 40px); 
 }
 
 .results-table th, .results-table td {
@@ -191,4 +196,14 @@ button:active {
     flex-direction: column;
     align-items: center;
   }
+
+	.form {
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 850px) {
+	.form div {
+		white-space: pre-wrap;
+	}
 }

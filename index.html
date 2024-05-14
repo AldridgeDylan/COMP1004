@@ -9,6 +9,7 @@
     <!-- SEO Optimization -->
     <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="stylesheet" href="styles/styles.css" />
   </head>
   <body class="container">
@@ -34,48 +35,22 @@
           <form class="form">
             <div>
               <label for="searchType">Search by:</label>
-              <select
-                id="searchType"
-                name="searchType"
-                onchange="toggleInput(this.value)"
-              >
+              <select id="searchType" name="searchType">
                 <option value="name">Driver Name</option>
                 <option value="license">Driving License Number</option>
               </select>
             </div>
             <div>
-              <div id="nameInput" style="display: block">
-                <label for="name">Driver Name: </label>
-                <input type="text" id="name" required maxlength="50" />
-              </div>
-              <div id="licenseInput" style="display: none">
-                <label for="license">License Number: </label>
-                <input type="text" id="license" required maxlength="50" />
-              </div>
+              <label id="dynamicLabel" for="dynamicInput"></label>
+              <input type="text" id="dynamicInput" required maxlength="50" />
             </div>
-            <div>
-              <button
-                type="button"
-                id="Submit"
-                name="Submit"
-                onclick="search()"
-              >
-                Search
-              </button>
-            </div>
-            <p id="message"></p>
+						<div>
+							<button type="button" id="Submit" name="Submit">Search</button>
+						</div>
           </form>
 
-          <table class="results-table">
-            <tr>
-              <th>Column 1</th>
-              <th>Column 2</th>
-            </tr>
-            <tr>
-              <td>Data 1</td>
-              <td>Data 2</td>
-            </tr>
-          </table>
+					<p id="message"></p>
+          <table class="results-table"></table>
         </div>
       </section>
     </main>
@@ -84,6 +59,6 @@
       <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
     </footer>
 
-    <script src="scripts/people.js"></script>
+    <script type="module" src="scripts/people.js"></script>
   </body>
 </html>
