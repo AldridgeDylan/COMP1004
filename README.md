@@ -19,7 +19,12 @@ This project is developed as part of the COMP1004 coursework. It involves creati
 
 ## Failed Tests
 
+- Search "rachel" should return two records: This test attempts to access the ID 'name'. However, as I have used a selector instead of multiple inputs along with a 'dyamicInput' ID, this test will fail. The search still works appropriately as required: ![Search 'rachel'](./images/search-rachel.png)
+- Search "KWK24JI" should return tesla but no owner: Similar to the previous failed test, this test attempts to access the ID 'rego'. However, the use of a selctor along with the 'dynamicInput' ID means the test will fail. The search still works as required: ![Search 'KWK24JI'](./images/search-rego.png)
+- Add a vehicle: This test attempts to find the button 'Add vehicle' in the HTML file. However, I have added this dynamically in the [vehicleAdd.js](/scripts/vehicleAdd.js) file to improve UX: ![Add vehicle button code](./images/add-vehicle-dynamic.png)
+
 ## Additional Work
+
 - Enhanced the user interface with better styling and responsiveness.
 - Added detailed error handling and feedback messages.
 - Ensured accessibility compliance with a Lighthouse accessibility score of 100.
