@@ -1,0 +1,20 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Call Supabase Function
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+      run: |
+        curl -X POST "$SUPABASE_URL/functions/v1/keep_alive" \
+        -H "apikey: $SUPABASE_API_KEY" \
+        -H "Authorization: Bearer $SUPABASE_API_KEY"
