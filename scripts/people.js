@@ -43,10 +43,13 @@ async function search() {
   }
 }
 
+// Gets all matching entries from the database
 async function fetchData() {
   const input = document.getElementById("dynamicInput");
   const columnName = input.getAttribute("data-column-name");
   const inputValue = input.value;
+  
+  // ilike makes it so that works with partial names and is case insensitive
   const url = `${SUPABASE_URL}/rest/v1/People?${encodeURIComponent(
     columnName
   )}=ilike.${encodeURIComponent("%" + inputValue + "%")}`;

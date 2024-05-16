@@ -1,73 +1,85 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
+    <!-- Metadata tags -->
     <meta http-equiv="Content-Language" content="en" />
     <meta charset="utf-8" />
     <meta name="author" content="Dylan Aldridge" />
     <meta name="description" content="COMP1004 Coursework Add a Vehicle" />
     <title>Add a Vehicle</title>
-
     <!-- For SEO optimisation -->
     <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <!-- Links to a shared external CSS file -->
     <link rel="stylesheet" href="../styles/styles.css" />
   </head>
-  <body class="container">
-    <header>
-      <h1>Add a vehicle</h1>
-      <nav>
-        <ul class="navigation">
-          <li><a href="../index.html">People search</a></li>
-          <li><a href="vehicle-search.html">Vehicle search</a></li>
-          <li><a href="vehicle-add.html">Add a vehicle</a></li>
-        </ul>
-      </nav>
-    </header>
+  <body>
+    <!-- CSS Grid is applied using the id container -->
+    <div id="container">
+      <header>
+         <!-- h1 heading tag used for 'Add a vehicle' -->
+        <h1>Add a vehicle</h1>
+        <nav>
+          <!-- ul used for the navigation links and is within the header -->
+          <!-- It also has the class navigation to apply CSS Flex -->
+          <ul class="navigation">
+            <li><a href="../index.html">People search</a></li>
+            <li><a href="vehicle-search.html">Vehicle search</a></li>
+            <li><a href="vehicle-add.html">Add a vehicle</a></li>
+          </ul>
+        </nav>
+      </header>
 
-    <main>
       <aside>
+        <!-- Image tag width and height is specified in the CSS -->
         <img src="../images/CarSideBar.jpeg" alt="Car Image" />
       </aside>
-      <section>
-        <h2>Welcome to the Vehicle Adding portal</h2>
-        <div class="section-grid">
-          <form class="add-car-form">
-            <div>
-              <label for="rego">Vehicle Registration: </label>
-              <input type="text" id="rego" required maxlength="50" />
-            </div>
-            <div>
-              <label for="make">Vehicle Make: </label>
-              <input type="text" id="make" required maxlength="50" />
-            </div>
-            <div>
-              <label for="model">Vehicle Model: </label>
-              <input type="text" id="model" required maxlength="50" />
-            </div>
-            <div>
-              <label for="colour">Vehicle Colour: </label>
-              <input type="text" id="colour" required maxlength="50" />
-            </div>
-            <div>
-              <label for="owner">Vehicle Owner (name): </label>
-              <input type="text" id="owner" required maxlength="50" />
-            </div>
-            <div>
-              <button type="button" id="Submit" name="Submit">Add</button>
-            </div>
-            <div>
-              <p id="message"></p>
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
 
-    <footer>
-      <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
-    </footer>
+      <main>
+        <section>
+          <h2>Welcome to the Vehicle Adding portal</h2>
+          <div class="section-grid">
+            <form class="add-car-form">
+              <!-- Each label and input has a seperate div and appropriate IDs -->
+              <div>
+                <label for="rego">Vehicle Registration: </label>
+                <input type="text" id="rego" required maxlength="50" />
+              </div>
+              <div>
+                <label for="make">Vehicle Make: </label>
+                <input type="text" id="make" required maxlength="50" />
+              </div>
+              <div>
+                <label for="model">Vehicle Model: </label>
+                <input type="text" id="model" required maxlength="50" />
+              </div>
+              <div>
+                <label for="colour">Vehicle Colour: </label>
+                <input type="text" id="colour" required maxlength="50" />
+              </div>
+              <div>
+                <label for="owner">Vehicle Owner (name): </label>
+                <input type="text" id="owner" required maxlength="50" />
+              </div>
+              <div>
+                <!-- Button to add a vehicle has text 'Add' -->
+                <button type="submit" id="Submit" name="Submit">Add</button>
+              </div>
+              <div id="message-container">
+                <!-- The paragraph content is determined in the linked JS file in the search function -->
+                <p id="message"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
 
-    <script src="../scripts/vehicleAdd.js"></script>
+      <footer>
+        <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
+      </footer>
+
+      <!-- Links to a page specific JS file -->
+      <script src="../scripts/vehicleAdd.js"></script>
+    </div>
   </body>
 </html>

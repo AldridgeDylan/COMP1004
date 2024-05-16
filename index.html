@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-  <head>
-    <meta http-equiv="Content-Language" content="en" />
-    <meta charset="utf-8" />
-    <meta name="author" content="Dylan Aldridge" />
-    <meta name="description" content="COMP1004 Coursework: People Search" />
-    <title>People Search</title>
-    <!-- SEO Optimization -->
-    <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="styles/styles.css" />
-  </head>
-  <body class="container">
+<head>
+  <!-- Metadata tags -->
+  <meta http-equiv="Content-Language" content="en" />
+  <meta charset="utf-8" />
+  <meta name="author" content="Dylan Aldridge" />
+  <meta name="description" content="COMP1004 Coursework: People Search" />
+  <title>People Search</title>
+  <!-- Additional tags for SEO Optimization -->
+  <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Links to a shared external CSS file -->
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <!-- CSS Grid is applied using the id container -->
+  <div id="container">
     <header>
+      <!-- h1 heading tag used for 'People Search' -->
       <h1>People Search</h1>
       <nav>
+        <!-- ul used for the navigation links and is within the header -->
+        <!-- It also has the class navigation to apply CSS Flex -->
         <ul class="navigation">
           <li><a href="index.html">People search</a></li>
           <li><a href="pages/vehicle-search.html">Vehicle search</a></li>
@@ -23,11 +30,12 @@
       </nav>
     </header>
 
-    <main>
-      <aside>
-        <img src="images/CarSideBar.jpeg" alt="Car Image" />
-      </aside>
+    <aside>
+      <!-- Image tag width and height is specified in the CSS -->
+      <img src="images/CarSideBar.jpeg" alt="Car Image" />
+    </aside>
 
+    <main>
       <section>
         <h2>Welcome to the People Search portal</h2>
         <div class="section-grid">
@@ -35,6 +43,8 @@
             <div>
               <label for="searchType">Search by:</label>
               <select id="searchType" name="searchType">
+                <!-- To allow for improved UI, the following options have the required associated id names -->
+                <!-- Additional options are given in a dropdown format for improved UX -->
                 <option value="name">Driver Name</option>
                 <option value="license">Driving License Number</option>
                 <option value="address">Address</option>
@@ -43,13 +53,16 @@
               </select>
             </div>
             <div>
+              <!-- The label content is determined in the linked JS file in the toggleinput function -->
               <label id="dynamicLabel" for="dynamicInput"></label>
               <input type="text" id="dynamicInput" required maxlength="50" />
             </div>
             <div>
-              <button type="button" id="Submit" name="Submit">Search</button>
+              <!-- Button to start the search has text 'Submit' -->
+              <button type="submit" id="Submit" name="Submit">Submit</button>
             </div>
           </form>
+          <!-- The paragraph content is determined in the linked JS file in the search function -->
           <p id="message"></p>
           <table id="results-table" class="results-table"></table>
         </div>
@@ -60,6 +73,8 @@
       <p>@2024 Database and Interfaces project - UON COMP1004 CW2</p>
     </footer>
 
+    <!-- Links to a page specific JS file -->
     <script type="module" src="scripts/people.js"></script>
-  </body>
+  </div>
+</body>
 </html>

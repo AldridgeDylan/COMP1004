@@ -3,16 +3,17 @@ const SUPABASE_PUBLIC_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxbHR3cnZyamhjY2p3bHlzeHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU2MzI2MzIsImV4cCI6MjAzMTIwODYzMn0.OswQr77RtcQ3nmXeWsOYa5dhmwpIVB6of_aYqwQ1yIw";
 const SUPABASE_URL = "https://iqltwrvrjhccjwlysxyt.supabase.co";
 
-let currentState = 'add'; 
+// Keeps track of state for the enter key event listener
+let currentState = "add";
 
-// Saves the state of the form
+// Save the state of the form
 let vehicleInformation = {
   rego: "",
   make: "",
   model: "",
   colour: "",
   owner: "",
-	ownerID: null,
+  ownerID: null,
 };
 
 async function add() {
@@ -23,19 +24,14 @@ async function add() {
   const owner = document.getElementById("owner").value;
   const messageElement = document.getElementById("message");
 
-  // Checks for an empty input field
-  if (
-    rego.trim() === "" ||
-    make.trim() === "" ||
-    model.trim() === "" ||
-    colour.trim() === "" ||
-    owner.trim() === ""
-  ) {
+  // Check for an empty input field
+  if (!rego || !make || !model || !colour || !owner) {
     messageElement.style.color = "red";
     messageElement.textContent = "Error: Please complete all input fields";
     return;
   }
 
+  // Update vehicle information with the entered values
   vehicleInformation = {
     rego,
     make,
@@ -45,30 +41,33 @@ async function add() {
   };
 
   try {
+    // See if the entered owner exists
     const response = await fetchOwner();
 
     if (response.length === 0) {
+      // If the entered owner doesn't exist, a form to create a new owner is created
       await createAddPersonForm();
-      currentState = 'owner'; // Update state to owner
     } else {
+      // If the entered owner does exist, a form to select the correct owner is created
       createSelectPersonForm(response);
     }
 
-    // Disable form elements
+    // Disables form elements after new form has been created
     document.getElementById("rego").disabled = true;
     document.getElementById("make").disabled = true;
     document.getElementById("model").disabled = true;
     document.getElementById("colour").disabled = true;
     document.getElementById("owner").disabled = true;
-
   } catch (e) {
     messageElement.style.color = "red";
     messageElement.textContent = "Error: " + e;
   }
 }
 
+// Gets all matching entries from the database
 async function fetchOwner() {
   const inputValue = vehicleInformation.owner;
+  // ilike makes it so that works with partial names and is case insensitive
   const url = `${SUPABASE_URL}/rest/v1/People?Name=ilike.${encodeURIComponent(
     "%" + inputValue + "%"
   )}`;
@@ -89,41 +88,55 @@ async function fetchOwner() {
   }
 }
 
+// Creates the form if there are matching entries in the database
 function createSelectPersonForm(owners) {
-  const form = document.querySelector('.add-car-form');
-  const ownerSelectDiv = document.createElement('div');
-  const ownerSelectLabel = document.createElement('label');
-  ownerSelectLabel.textContent = "Select Owner: ";
-  const ownerSelect = document.createElement('select');
-  ownerSelect.id = 'ownerSelect';
+  const form = document.querySelector(".add-car-form");
+  const messageContainer = document.getElementById("message-container");
+  const messageElement = document.getElementById("message");
 
-  owners.forEach(owner => {
-    const option = document.createElement('option');
+  const ownerSelectDiv = document.createElement("div");
+  const ownerSelectLabel = document.createElement("label");
+
+  // Creates a select dropdown for the returned owners
+  ownerSelectLabel.textContent = "Select Owner: ";
+  const ownerSelect = document.createElement("select");
+  owners.forEach((owner) => {
+    const option = document.createElement("option");
     option.value = owner.PersonID;
-    option.textContent = `${owner.Name} - ${owner.LicenseNumber}`;
+    option.textContent = `${owner.Name}`;
     ownerSelect.appendChild(option);
   });
+
+  if (messageContainer && messageElement) {
+    messageContainer.removeChild(messageElement);
+    form.removeChild(messageContainer);
+  }
 
   ownerSelectDiv.appendChild(ownerSelectLabel);
   ownerSelectDiv.appendChild(ownerSelect);
 
-  const addOwnerButton = document.createElement('button');
-  addOwnerButton.type = 'button';
-  addOwnerButton.textContent = 'Select Owner';
-  addOwnerButton.addEventListener('click', () => {
-    vehicleInformation.ownerID = ownerSelect.value;
-    currentState = 'vehicle'; // Update state to vehicle
+  // Creates a button to submit the new form and adds appropriate event listeners
+  const addOwnerButton = document.createElement("button");
+  addOwnerButton.type = "submit";
+  addOwnerButton.textContent = "Select Owner";
+  addOwnerButton.addEventListener("click", () => {
+    vehicleInformation.ownerID = owner.PersonID;
     createAddVehicleButton();
   });
+  currentState = "selectOwner";
+
+  addOwnerButton.style.marginTop = "10px";
+  addOwnerButton.style.marginBottom = "10px";
 
   form.appendChild(ownerSelectDiv);
   form.appendChild(addOwnerButton);
 }
 
+// Directly implements the new HTML for the form to add a new person to the database
 function createAddPersonForm() {
-  const form = document.querySelector('.add-car-form');
+  const form = document.querySelector(".add-car-form");
   form.innerHTML = `
-    <h3>Add Owner Information</h3>
+		<h3>Add a new person</h3>
     <div>
       <label for="personid">Owner ID: </label>
       <input type="text" id="personid" required maxlength="50" />
@@ -149,13 +162,15 @@ function createAddPersonForm() {
       <input type="date" id="expire" required />
     </div>
     <div>
-      <button type="button" id="SubmitOwner" name="SubmitOwner">Add Owner</button>
+      <button type="submit" id="addOwner" name="addOwner">Add Owner</button>
     </div>
   `;
 
-  document.getElementById('SubmitOwner').addEventListener('click', addOwner);
+  document.getElementById("addOwner").addEventListener("click", addOwner);
+  currentState = "owner";
 }
 
+// Creates a new entry in the People database
 async function addOwner() {
   const personid = document.getElementById("personid").value.trim();
   const ownerName = document.getElementById("ownerName").value.trim();
@@ -165,6 +180,7 @@ async function addOwner() {
   const expire = document.getElementById("expire").value;
   const messageElement = document.getElementById("message");
 
+  // Check for an empty input field
   if (!personid || !ownerName || !address || !dob || !license || !expire) {
     messageElement.style.color = "red";
     messageElement.textContent = "Error: All fields are required.";
@@ -194,28 +210,35 @@ async function addOwner() {
     }
 
     vehicleInformation.ownerID = personid;
-    currentState = 'vehicle'; // Update state to vehicle
-    createAddVehicleButton();
+    await createAddVehicleButton();
     messageElement.style.color = "green";
-    messageElement.textContent = "Owner added successfully. Please add the vehicle now.";
+    messageElement.textContent =
+      "Owner added successfully. Please add the vehicle now.";
   } catch (error) {
     messageElement.style.color = "red";
     messageElement.textContent = `Error: ${error.message}`;
   }
 }
 
+// Creates a new HTML Buttonn element for form submission and adds appropriate event listeners
 function createAddVehicleButton() {
-  const form = document.querySelector('.add-car-form');
-  const addVehicleButton = document.createElement('button');
-  addVehicleButton.type = 'button';
-  addVehicleButton.textContent = 'Add Vehicle';
-  addVehicleButton.addEventListener('click', () => addVehicle(vehicleInformation.ownerID));
+  const form = document.querySelector(".add-car-form");
+  const addVehicleButton = document.createElement("button");
+  addVehicleButton.type = "submit";
+  addVehicleButton.textContent = "Add Vehicle";
+  addVehicleButton.addEventListener("click", () => addVehicle());
+  currentState = "vehicle";
   form.appendChild(addVehicleButton);
 }
 
-async function addVehicle(ownerId) {
+// Creates a new entry in the Vehicle database
+async function addVehicle() {
   const { rego, make, model, colour } = vehicleInformation;
-  const messageElement = document.getElementById("message");
+  const form = document.querySelector(".add-car-form");
+  const messageContainer = document.createElement("div");
+  const messageElement = document.createElement("p");
+  messageContainer.appendChild(messageElement);
+  form.appendChild(messageContainer);
 
   try {
     const { data, error } = await fetch(`${SUPABASE_URL}/rest/v1/Vehicles`, {
@@ -230,7 +253,7 @@ async function addVehicle(ownerId) {
         Make: make,
         Model: model,
         Colour: colour,
-        OwnerID: ownerId,
+        OwnerID: vehicleInformation.ownerID,
       }),
     });
 
@@ -250,15 +273,19 @@ async function addVehicle(ownerId) {
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("Submit").addEventListener("click", add);
 
+	// The enter keypress changes which function it executes
+	// This is determined by currentState which changes as a user progresses through the form
   document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      if (currentState === 'add') {
+      if (currentState === "add") {
         add();
-      } else if (currentState === 'owner') {
+      } else if (currentState === "owner") {
         addOwner();
-      } else if (currentState === 'vehicle') {
-        addVehicle(vehicleInformation.ownerID);
+      } else if (currentState === "selectOwner") {
+        createAddVehicleButton();
+      } else if (currentState === "vehicle") {
+        addVehicle();
       }
     }
   });
