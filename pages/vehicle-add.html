@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
   <head>
     <!-- Metadata tags -->
     <meta http-equiv="Content-Language" content="en" />
@@ -11,14 +11,14 @@
     <meta name="keywords" content="UON, COMP1004, Databases, Interfaces" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Links to a shared external CSS file -->
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
   </head>
   <body>
     <!-- CSS Grid is applied using the id container -->
     <div id="container">
       <header>
          <!-- h1 heading tag used for 'Add a vehicle' -->
-        <h1>Add a vehicle</h1>
+        <h1 id="vehicle-add-main-heading">Add a vehicle</h1>
         <nav>
           <!-- ul used for the navigation links and is within the header -->
           <!-- It also has the class navigation to apply CSS Flex -->
@@ -37,7 +37,7 @@
 
       <main>
         <section>
-          <h2>Welcome to the Vehicle Adding portal</h2>
+          <h2 id="vehicle-add-sub-heading">Welcome to the Vehicle Adding portal</h2>
           <div class="section-grid">
             <form class="add-car-form">
               <!-- Each label and input has a seperate div and appropriate IDs -->

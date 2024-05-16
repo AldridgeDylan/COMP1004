@@ -225,7 +225,7 @@ function createAddVehicleButton() {
   const form = document.querySelector(".add-car-form");
   const addVehicleButton = document.createElement("button");
   addVehicleButton.type = "submit";
-  addVehicleButton.textContent = "Add Vehicle";
+  addVehicleButton.textContent = "Add vehicle";
   addVehicleButton.addEventListener("click", () => addVehicle());
   currentState = "vehicle";
   form.appendChild(addVehicleButton);

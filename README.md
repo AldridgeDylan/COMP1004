@@ -17,6 +17,8 @@ This project is developed as part of the COMP1004 coursework. It involves creati
 
 ## Javascript and Database
 
+## Failed Tests
+
 ## Additional Work
 - Enhanced the user interface with better styling and responsiveness.
 - Added detailed error handling and feedback messages.
